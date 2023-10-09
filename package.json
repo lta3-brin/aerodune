@@ -1,0 +1,19 @@
+{
+  "name": "aerodune",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bunx tailwindcss -i ./styles/main.css -o ./styles.css --watch",
+    "build": "bunx tailwindcss -i ./styles/main.css -o ./styles.css --minify"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "tailwindcss": "^3.3.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "flowbite": "^1.8.1"
+  }
+}
