@@ -2,7 +2,14 @@
 target = "./index.html"
 
 [watch]
-ignore = ["./src-tauri", "node_modules", "./styles.css"]
+ignore = [
+  "./src-tauri",
+  "node_modules",
+  "./styles.css",
+  "./styles/main.css",
+  "./package.json",
+  "./package-lock.json",
+]
 
 [serve]
 address = "127.0.0.1"
