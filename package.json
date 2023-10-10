@@ -1,19 +1,22 @@
 {
   "name": "aerodune",
-  "module": "index.ts",
-  "type": "module",
+  "version": "1.0.0",
+  "description": "Repositori ini merupakan wadah pengembangan aplikasi kalibrasi instrumentasi pengujian.",
+  "main": "tailwind.config.js",
   "scripts": {
-    "dev": "bunx tailwindcss -i ./styles/main.css -o ./styles.css --watch",
-    "build": "bunx tailwindcss -i ./styles/main.css -o ./styles.css --minify"
+    "dev": "npx tailwindcss -i ./styles/main.css -o ./styles.css --watch",
+    "build": "npx tailwindcss -i ./styles/main.css -o ./styles.css --minify"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "bun-types": "latest",
     "tailwindcss": "^3.3.3"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
   },
   "dependencies": {
     "flowbite": "^1.8.1"
-  }
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }
