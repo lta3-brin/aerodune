@@ -5,13 +5,25 @@ use crate::components::{
     brand::DefaultBrand, sidebar::DefaultSidebar, sidebarfooter::DefaultSideFooter,
 };
 use crate::pages::utama::HalamanUtama;
+use crate::stores::default::DefaultState;
 
 #[component]
 pub fn DefaultApp() -> impl IntoView {
+    provide_context(create_rw_signal(DefaultState::default()));
     provide_meta_context();
 
+    let state = expect_context::<RwSignal<DefaultState>>();
+    let (light, _) = create_slice(state, |st| st.light, |st, val| st.light = val);
+
     view! {
-        <Html lang="en" attr:data-theme="light" />
+        <Show
+            when=light
+            fallback=|| view! {
+                <Html lang="en" attr:data-theme="dark" />
+            }
+        >
+            <Html lang="en" attr:data-theme="light" />
+        </Show>
         <div class="flex flex-row sm:gap-10">
             <div class="sm:w-full sm:max-w-[18rem]">
                 <input type="checkbox" id="sidebar-mobile-fixed" class="sidebar-state" />
