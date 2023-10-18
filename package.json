@@ -9,14 +9,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "tailwindcss": "^3.3.3"
   },
   "browserslist": [
     "defaults"
-  ],
-  "dependencies": {
-    "rippleui": "^1.12.1"
-  }
+  ]
 }
