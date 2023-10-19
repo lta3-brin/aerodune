@@ -24,19 +24,19 @@ pub fn DefaultApp() -> impl IntoView {
 
     view! {
         <Show when=light fallback=|| view! {
-            <Html lang="en" class="dark" />
+            <Html lang="en" class="dark bg-gray-800" />
         }>
             <Html lang="en" class="light" />
         </Show>
 
-        <div class="grid grid-cols-1 lg:grid-cols-5">
-            <div class="hidden lg:flex h-screen flex-col justify-between border-e bg-white">
+        <div class="grid grid-cols-1 lg:grid-cols-5 dark:bg-gray-800 dark:text-gray-300">
+            <div class="hidden lg:flex h-screen flex-col justify-between border-e bg-white dark:bg-gray-800 dark:border-gray-700">
                 <div class="px-4 py-6">
                     <DefaultBrand />
                     <DefaultSideMenu />
                 </div>
 
-                <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">
+                <div class="sticky inset-x-0 bottom-0 border-t border-gray-100 dark:border-gray-700">
                     <DefaultSideFooter />
                 </div>
             </div>
