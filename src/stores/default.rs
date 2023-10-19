@@ -7,7 +7,7 @@ pub struct DefaultState {
 impl Default for DefaultState {
     fn default() -> Self {
         Self {
-            light: true,
+            light: false,
             closesidebar: true,
         }
     }
