@@ -1,3 +1,2 @@
-pub mod brand;
+pub mod buttongroups;
 pub mod sidebar;
-pub mod sidebarfooter;
