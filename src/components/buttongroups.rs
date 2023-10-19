@@ -17,9 +17,9 @@ pub fn DefaultBtns() -> impl IntoView {
     };
 
     view! {
-        <div class="inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
+        <div class="inline-flex rounded-lg border border-gray-100 dark:border-gray-900 bg-gray-100 dark:bg-gray-600 p-1">
             <button
-                class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 hover:text-blue-500 hover:shadow-sm hover:bg-white focus:relative"
+                class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 dark:text-gray-300 dark:hover:text-blue-300 hover:text-blue-500 hover:shadow-sm hover:bg-white dark:hover:bg-gray-500 focus:relative"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@ pub fn DefaultBtns() -> impl IntoView {
             </button>
 
             <button
-                class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 hover:text-blue-500 hover:shadow-sm hover:bg-white focus:relative"
+                class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 dark:text-gray-300 dark:hover:text-blue-300 hover:text-blue-500 hover:shadow-sm hover:bg-white dark:hover:bg-gray-500 focus:relative"
                 on:click=onclicktema
             >
                 <Show when=light fallback=|| view! {
@@ -53,14 +53,13 @@ pub fn DefaultBtns() -> impl IntoView {
             </button>
 
             <button
-                class="inline-flex lg:hidden items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 hover:text-blue-500 hover:shadow-sm hover:bg-white focus:relative"
+                class="lg:hidden inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 dark:text-gray-300 dark:hover:text-blue-300 hover:text-blue-500 hover:shadow-sm hover:bg-white dark:hover:bg-gray-500 focus:relative"
                 on:click=onclicksidebar
             >
                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
                 </svg>
             </button>
-
         </div>
     }
 }
