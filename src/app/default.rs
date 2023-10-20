@@ -2,6 +2,7 @@ use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
 
+use crate::components::galat::TakDitemukan;
 use crate::components::{buttongroups::DefaultBtns, sidebar::DefaultSidebar};
 use crate::pages::utama::HalamanUtama;
 use crate::stores::default::DefaultState;
@@ -35,23 +36,26 @@ pub fn DefaultApp() -> impl IntoView {
 
                 <Routes>
                     <Route path="/" view=HalamanUtama />
+                    <Route path="/*any" view=TakDitemukan />
                 </Routes>
             </div>
-
-            <div class="absolute top-0 left-0 invisible lg:visible">
-                <DefaultSidebar />
-            </div>
-
-            <div class="absolute top-0 left-0 z-50 lg:hidden"
-                class:hidden=side
-            >
-                <DefaultSidebar />
-            </div>
-            <div
-                class="w-screen h-screen absolute top-0 left-0 z-20 bg-gray-700 opacity-70 lg:hidden"
-                class:hidden=side
-                on:click=onclicksidebar
-            />
         </Router>
+
+        <div class="absolute top-0 left-0 invisible lg:visible">
+            <DefaultSidebar />
+        </div>
+
+        <div class="absolute top-0 left-0 z-50 lg:hidden"
+            class:hidden=side
+        >
+            <DefaultSidebar />
+        </div>
+
+        <div
+            class="w-screen h-screen absolute top-0 left-0 z-20 bg-gray-700 opacity-70 lg:hidden"
+            class:hidden=side
+            on:click=onclicksidebar
+        />
     }
 }
+
