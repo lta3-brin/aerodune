@@ -1,9 +1,10 @@
 use leptos::*;
+use leptos_router::*;
 
 #[component]
 pub fn DefaultSidebar() -> impl IntoView {
     view! {
-        <div class="flex h-screen flex-col justify-between border-e bg-white dark:bg-gray-800 dark:border-gray-700">
+        <div class="w-60 flex h-screen flex-col justify-between border-e bg-white dark:bg-gray-800 dark:border-gray-700">
             <div class="px-4 py-6">
                 <DefaultBrand />
                 <DefaultSideMenu />
@@ -35,21 +36,21 @@ pub fn DefaultSideMenu() -> impl IntoView {
     view! {
         <ul class="mt-6 space-y-1">
             <li>
-                <a href="" class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                <A href="/" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
                     "Kegiatan 1"
-                </a>
+                </A>
             </li>
 
             <li>
-                <a href="" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300">
+                <A href="1" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
                     "Instrumen 1"
-                </a>
+                </A>
             </li>
 
             <li>
-                <a href="" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300">
+                <A href="2" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
                     "Kegiatan 2"
-                </a>
+                </A>
             </li>
         </ul>
     }
@@ -58,8 +59,8 @@ pub fn DefaultSideMenu() -> impl IntoView {
 #[component]
 pub fn DefaultSideFooter() -> impl IntoView {
     view! {
-        <a href="/" class="block px-12 py-3 text-center text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring active:bg-gray-100 dark:text-gray-300">
+        <A href="/" class="block px-12 py-3 text-center text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring active:bg-gray-100 dark:text-gray-300">
             Tambah Kegiatan
-        </a>
+        </A>
     }
 }

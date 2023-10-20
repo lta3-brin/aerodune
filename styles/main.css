@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[aria-current]:not([aria-current="false"]) {
+  @apply bg-gray-100 dark:bg-gray-700;
+}
