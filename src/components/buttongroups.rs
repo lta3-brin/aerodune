@@ -5,7 +5,7 @@ use crate::stores::default::DefaultState;
 pub fn DefaultBtns() -> impl IntoView {
     let state = expect_context::<RwSignal<DefaultState>>();
     let (light, set_light) = create_slice(state, |st| st.light, |st, val| st.light = val);
-    let (_, set_sidebar) =
+    let (side, set_sidebar) =
         create_slice(state, |st| st.closesidebar, |st, val| st.closesidebar = val);
 
     let onclicktema = move |_| {
@@ -13,7 +13,7 @@ pub fn DefaultBtns() -> impl IntoView {
     };
 
     let onclicksidebar = move |_| {
-        set_sidebar(false);
+        set_sidebar(!side());
     };
 
     view! {
@@ -56,10 +56,17 @@ pub fn DefaultBtns() -> impl IntoView {
                 class="lg:hidden inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 dark:text-gray-300 dark:hover:text-blue-300 hover:text-blue-500 hover:shadow-sm hover:bg-white dark:hover:bg-gray-500 focus:relative"
                 on:click=onclicksidebar
             >
-                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
-                </svg>
+                <Show when=side fallback=|| view! {
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                }>
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+                    </svg>
+                </Show>
             </button>
         </div>
     }
 }
+
