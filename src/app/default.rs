@@ -14,12 +14,7 @@ pub fn DefaultApp() -> impl IntoView {
 
     let state = expect_context::<RwSignal<DefaultState>>();
     let (light, _) = create_slice(state, |st| st.light, |st, val| st.light = val);
-    let (side, set_side) =
-        create_slice(state, |st| st.closesidebar, |st, val| st.closesidebar = val);
-
-    let onclicksidebar = move |_| {
-        set_side(true);
-    };
+    let (side, _) = create_slice(state, |st| st.closesidebar, |st, val| st.closesidebar = val);
 
     view! {
         <Show when=light fallback=|| view! {
@@ -45,17 +40,11 @@ pub fn DefaultApp() -> impl IntoView {
             <DefaultSidebar />
         </div>
 
-        <div class="absolute top-0 left-0 z-50 lg:hidden"
+        <div class="absolute top-0 left-0 z-50 hidden"
             class:hidden=side
         >
             <DefaultSidebar />
         </div>
-
-        <div
-            class="w-screen h-screen absolute top-0 left-0 z-20 bg-gray-700 opacity-70 lg:hidden"
-            class:hidden=side
-            on:click=onclicksidebar
-        />
     }
 }
 
