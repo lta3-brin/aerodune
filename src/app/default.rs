@@ -4,6 +4,9 @@ use leptos_router::*;
 
 use crate::components::galat::TakDitemukan;
 use crate::components::{buttongroups::DefaultBtns, sidebar::DefaultSidebar};
+use crate::pages::kegiatan::index::Kegiatan;
+use crate::pages::kegiatan::rincian::RincianKegiatan;
+use crate::pages::kegiatan::tambah::TambahKegiatan;
 use crate::pages::utama::HalamanUtama;
 use crate::stores::default::DefaultState;
 
@@ -24,13 +27,17 @@ pub fn DefaultApp() -> impl IntoView {
         </Show>
 
         <Router>
-            <div class="p-7 lg:ml-60">
+            <div class="p-7 lg:ml-60 text-gray-500 dark:text-gray-300">
                 <div class="flex flex-row-reverse mb-3">
                     <DefaultBtns />
                 </div>
 
                 <Routes>
                     <Route path="/" view=HalamanUtama />
+                    <Route path="/kegiatan" view=Kegiatan>
+                        <Route path="" view=TambahKegiatan />
+                        <Route path=":id" view=RincianKegiatan />
+                    </Route>
                     <Route path="/*any" view=TakDitemukan />
                 </Routes>
             </div>
