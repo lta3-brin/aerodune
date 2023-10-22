@@ -36,19 +36,19 @@ pub fn DefaultSideMenu() -> impl IntoView {
     view! {
         <ul class="mt-6 space-y-1">
             <li>
-                <A href="/" exact=true class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
+                <A href="/kegiatan/1" exact=true class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
                     "Kegiatan 1"
                 </A>
             </li>
 
             <li>
-                <A href="1" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
+                <A href="/kegiatan/2" exact=true class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
                     "Instrumen 1"
                 </A>
             </li>
 
             <li>
-                <A href="2" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
+                <A href="/kegiatan/3" exact=true class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
                     "Kegiatan 2"
                 </A>
             </li>
@@ -59,7 +59,7 @@ pub fn DefaultSideMenu() -> impl IntoView {
 #[component]
 pub fn DefaultSideFooter() -> impl IntoView {
     view! {
-        <A href="/tambahkegiatan" class="block px-12 py-3 text-center text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring active:bg-gray-100 dark:text-gray-300">
+        <A href="/kegiatan" exact=true class="block px-12 py-3 text-center text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring active:bg-gray-100 dark:text-gray-300">
             Tambah Kegiatan
         </A>
     }
