@@ -26,11 +26,11 @@ pub fn TambahKegiatan() -> impl IntoView {
                 </label>
             </div>
             <div>
-                <input type="submit"
+                <button type="submit"
                     class="inline-block px-5 py-3 text-sm uppercase font-medium text-white bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none focus:ring"
                 >
                     "Simpan"
-                </input>
+                </button>
             </div>
         </Form>
     }
