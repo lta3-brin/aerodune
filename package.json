@@ -11,6 +11,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.6",
     "tailwindcss": "^3.3.3"
   },
   "browserslist": [
