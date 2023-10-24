@@ -12,7 +12,7 @@ pub fn HalamanUtama() -> impl IntoView {
                         <strong class="font-extrabold text-purple-700 sm:block">
                             "Kalibrasi Instrumentasi"
                         </strong>
-                        "LA3 BRIN"
+                        <p>"LA3 BRIN"</p>
                     </h1>
 
                     <p class="mt-4 sm:text-xl/relaxed">
@@ -23,4 +23,3 @@ pub fn HalamanUtama() -> impl IntoView {
             </section>
     }
 }
-
