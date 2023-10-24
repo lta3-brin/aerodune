@@ -3,9 +3,12 @@ use leptos_router::*;
 
 #[component]
 pub fn TambahKegiatan() -> impl IntoView {
+    let query = use_query_map();
+    let kegiatan = move || query().get("kegiatan").cloned().unwrap_or_default();
+
     view! {
-        <Form method="GET" action="" class="grid grid-cols-1 md:grid-cols-6 gap-x-3">
-            <div class="col-span-5">
+        <Form method="GET" action="" class="grid grid-cols-1 md:grid-cols-6 gap-3">
+            <div class="md:col-span-5">
                 <label
                     for="Username"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
@@ -13,9 +16,10 @@ pub fn TambahKegiatan() -> impl IntoView {
                     <input
                         type="text"
                         id="kegiatan"
-                        class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                        class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
                         placeholder="Kegiatan"
                         name="kegiatan"
+                        value=kegiatan
                     />
 
                     <span
@@ -27,7 +31,7 @@ pub fn TambahKegiatan() -> impl IntoView {
             </div>
             <div>
                 <button type="submit"
-                    class="inline-block px-5 py-3 text-sm uppercase font-medium text-white bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none focus:ring"
+                    class="w-full px-5 py-3 text-sm uppercase font-medium text-white bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none focus:ring"
                 >
                     "Simpan"
                 </button>
@@ -35,4 +39,3 @@ pub fn TambahKegiatan() -> impl IntoView {
         </Form>
     }
 }
-
