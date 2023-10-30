@@ -1,13 +1,34 @@
+use crate::app::default::invoke;
+use crate::models::kegiatan::KegiatanArgs;
+use leptos::leptos_dom::ev::SubmitEvent;
 use leptos::*;
-use leptos_router::*;
+use serde_wasm_bindgen::to_value;
 
 #[component]
 pub fn TambahKegiatan() -> impl IntoView {
-    let query = use_query_map();
-    let kegiatan = move || query().get("kegiatan").cloned().unwrap_or_default();
+    let (name, set_name) = create_signal(String::new());
+
+    let simpankegiatan = move |ev: SubmitEvent| {
+        ev.prevent_default();
+        spawn_local(async move {
+            if name().is_empty() {
+                return;
+            }
+
+            let args = to_value(&KegiatanArgs { name: &name() }).unwrap();
+            let new_msg = invoke("greet", args).await.as_string().unwrap();
+            logging::log!("{}", new_msg);
+            set_name("".to_string());
+        });
+    };
+
+    let update_name = move |ev| {
+        let v = event_target_value(&ev);
+        set_name(v);
+    };
 
     view! {
-        <Form method="GET" action="" class="grid grid-cols-1 md:grid-cols-6 gap-3">
+        <form class="grid grid-cols-1 md:grid-cols-6 gap-3" on:submit=simpankegiatan>
             <div class="md:col-span-5">
                 <label
                     for="Username"
@@ -19,7 +40,8 @@ pub fn TambahKegiatan() -> impl IntoView {
                         class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
                         placeholder="Kegiatan"
                         name="kegiatan"
-                        value=kegiatan
+                        prop:value=name
+                        on:input=update_name
                     />
 
                     <span
@@ -36,6 +58,6 @@ pub fn TambahKegiatan() -> impl IntoView {
                     "Simpan"
                 </button>
             </div>
-        </Form>
+        </form>
     }
 }
