@@ -1,6 +1,7 @@
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
+use wasm_bindgen::prelude::*;
 
 use crate::components::galat::TakDitemukan;
 use crate::components::{buttongroups::DefaultBtns, sidebar::DefaultSidebar};
@@ -9,6 +10,12 @@ use crate::pages::kegiatan::rincian::RincianKegiatan;
 use crate::pages::kegiatan::tambah::TambahKegiatan;
 use crate::pages::utama::HalamanUtama;
 use crate::stores::default::DefaultState;
+
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "tauri"])]
+    pub async fn invoke(cmd: &str, args: JsValue) -> JsValue;
+}
 
 #[component]
 pub fn DefaultApp() -> impl IntoView {
@@ -54,4 +61,3 @@ pub fn DefaultApp() -> impl IntoView {
         </div>
     }
 }
-
