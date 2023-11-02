@@ -9,7 +9,7 @@ use anyhow::Result;
 use std::env;
 use surrealdb::engine::local::File;
 
-use crate::instruksi::kegiatan::greet;
+use crate::instruksi::kegiatan::tambahkegiatan;
 use crate::store::persistent::DB;
 
 #[tokio::main]
@@ -20,7 +20,7 @@ async fn main() -> Result<()> {
     DB.use_ns("aerodune").use_db("kalibrasi").await?;
 
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![tambahkegiatan])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 
