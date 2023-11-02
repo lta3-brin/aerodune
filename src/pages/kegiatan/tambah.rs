@@ -16,7 +16,7 @@ pub fn TambahKegiatan() -> impl IntoView {
             }
 
             let args = to_value(&KegiatanArgs { name: &name() }).unwrap();
-            let new_msg = invoke("greet", args).await.as_string().unwrap();
+            let new_msg = invoke("tambahkegiatan", args).await.as_string().unwrap();
             logging::log!("{}", new_msg);
             set_name("".to_string());
         });
