@@ -7,16 +7,14 @@ mod store;
 
 use anyhow::Result;
 use std::env;
-use surrealdb::engine::local::File;
+use surrealdb::engine::remote::ws::Ws;
 
 use crate::instruksi::kegiatan::tambahkegiatan;
 use crate::store::persistent::DB;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let path = env::current_dir()?;
-    let dir = format!("{}/data", path.display());
-    DB.connect::<File>(dir).await?;
+    DB.connect::<Ws>("localhost:8000").await?;
     DB.use_ns("aerodune").use_db("kalibrasi").await?;
 
     tauri::Builder::default()
@@ -26,3 +24,4 @@ async fn main() -> Result<()> {
 
     Ok(())
 }
+
