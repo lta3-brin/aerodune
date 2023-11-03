@@ -1,5 +1,5 @@
 use once_cell::sync::Lazy;
-use surrealdb::{engine::local::Db, Surreal};
+use surrealdb::{engine::remote::ws::Client, Surreal};
 
-pub static DB: Lazy<Surreal<Db>> = Lazy::new(Surreal::init);
+pub static DB: Lazy<Surreal<Client>> = Lazy::new(Surreal::init);
 
