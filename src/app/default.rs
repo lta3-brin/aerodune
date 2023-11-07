@@ -3,6 +3,7 @@ use leptos_meta::*;
 use leptos_router::*;
 use wasm_bindgen::prelude::*;
 
+use crate::components::alert::SuccessAlert;
 use crate::components::galat::TakDitemukan;
 use crate::components::{buttongroups::DefaultBtns, sidebar::DefaultSidebar};
 use crate::pages::kegiatan::index::Kegiatan;
@@ -38,6 +39,8 @@ pub fn DefaultApp() -> impl IntoView {
                 <div class="flex flex-row-reverse mb-3">
                     <DefaultBtns />
                 </div>
+
+                <SuccessAlert />
 
                 <Routes>
                     <Route path="/" view=HalamanUtama />
