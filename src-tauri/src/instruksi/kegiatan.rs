@@ -1,8 +1,8 @@
 use chrono::prelude::Local;
 
-use crate::model::kegiatan::KegiatanTambah;
-use crate::model::Record;
 use crate::store::persistent::DB;
+use berbagi::models::kegiatan::KegiatanTambah;
+use berbagi::models::Record;
 
 #[tauri::command]
 pub async fn tambahkegiatan(name: String) -> Result<String, String> {
