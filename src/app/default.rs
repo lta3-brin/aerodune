@@ -26,6 +26,7 @@ pub fn DefaultApp() -> impl IntoView {
     let state = expect_context::<RwSignal<DefaultState>>();
     let (light, _) = create_slice(state, |st| st.light, |st, val| st.light = val);
     let (side, _) = create_slice(state, |st| st.closesidebar, |st, val| st.closesidebar = val);
+    let (success, _) = create_slice(state, |st| st.successalert, |st, val| st.successalert = val);
 
     view! {
         <Show when=light fallback=|| view! {
@@ -40,7 +41,10 @@ pub fn DefaultApp() -> impl IntoView {
                     <DefaultBtns />
                 </div>
 
-                <SuccessAlert />
+                <Show
+                    when=success fallback=|| view! {}>
+                    <SuccessAlert />
+                </Show>
 
                 <Routes>
                     <Route path="/" view=HalamanUtama />
