@@ -1,7 +1,17 @@
 use leptos::*;
 
+use crate::stores::default::DefaultState;
+
 #[component]
 pub fn SuccessAlert() -> impl IntoView {
+    let state = expect_context::<RwSignal<DefaultState>>();
+    let (_, set_success) =
+        create_slice(state, |st| st.successalert, |st, val| st.successalert = val);
+
+    let onbtnclick = move |_| {
+        set_success(false);
+    };
+
     view! {
         <div role="alert" class="rounded-xl border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-600 p-4">
             <div class="flex items-start gap-4">
@@ -30,7 +40,10 @@ pub fn SuccessAlert() -> impl IntoView {
                     </p>
                 </div>
 
-                <button class="text-gray-500 dark:text-gray-300 transition hover:text-gray-600 dark:hover:text-gray-400">
+                <button
+                    class="text-gray-500 dark:text-gray-300 transition hover:text-gray-600 dark:hover:text-gray-400"
+                    on:click=onbtnclick
+                >
                     <span class="sr-only">"Dismiss popup"</span>
 
                     <svg
