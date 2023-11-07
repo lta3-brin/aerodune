@@ -1,4 +1,5 @@
 use crate::app::default::invoke;
+use crate::stores::default::DefaultState;
 use berbagi::models::kegiatan::KegiatanArgs;
 use leptos::leptos_dom::ev::SubmitEvent;
 use leptos::*;
@@ -7,6 +8,10 @@ use serde_wasm_bindgen::to_value;
 #[component]
 pub fn TambahKegiatan() -> impl IntoView {
     let (name, set_name) = create_signal(String::new());
+
+    let state = expect_context::<RwSignal<DefaultState>>();
+    let (_, set_success) =
+        create_slice(state, |st| st.successalert, |st, val| st.successalert = val);
 
     let simpankegiatan = move |ev: SubmitEvent| {
         ev.prevent_default();
@@ -18,6 +23,7 @@ pub fn TambahKegiatan() -> impl IntoView {
             let args = to_value(&KegiatanArgs { name: name() }).unwrap();
             let new_msg = invoke("tambahkegiatan", args).await.as_string().unwrap();
             set_name("".to_string());
+            set_success(true);
         });
     };
 
