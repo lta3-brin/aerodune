@@ -2,7 +2,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod instruksi;
-mod model;
 mod store;
 
 use anyhow::Result;
@@ -24,4 +23,3 @@ async fn main() -> Result<()> {
 
     Ok(())
 }
-
