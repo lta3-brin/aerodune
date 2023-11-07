@@ -3,6 +3,7 @@ use leptos_meta::*;
 use leptos_router::*;
 use wasm_bindgen::prelude::*;
 
+use crate::components::alert::SuccessAlert;
 use crate::components::galat::TakDitemukan;
 use crate::components::{buttongroups::DefaultBtns, sidebar::DefaultSidebar};
 use crate::pages::kegiatan::index::Kegiatan;
@@ -25,6 +26,7 @@ pub fn DefaultApp() -> impl IntoView {
     let state = expect_context::<RwSignal<DefaultState>>();
     let (light, _) = create_slice(state, |st| st.light, |st, val| st.light = val);
     let (side, _) = create_slice(state, |st| st.closesidebar, |st, val| st.closesidebar = val);
+    let (success, _) = create_slice(state, |st| st.successalert, |st, val| st.successalert = val);
 
     view! {
         <Show when=light fallback=|| view! {
@@ -38,6 +40,11 @@ pub fn DefaultApp() -> impl IntoView {
                 <div class="flex flex-row-reverse mb-3">
                     <DefaultBtns />
                 </div>
+
+                <Show
+                    when=success fallback=|| view! {}>
+                    <SuccessAlert />
+                </Show>
 
                 <Routes>
                     <Route path="/" view=HalamanUtama />
