@@ -2,6 +2,8 @@
 pub struct DefaultState {
     pub light: bool,
     pub closesidebar: bool,
+    pub successalert: bool,
+    pub failalert: bool,
 }
 
 impl Default for DefaultState {
@@ -9,6 +11,8 @@ impl Default for DefaultState {
         Self {
             light: false,
             closesidebar: true,
+            successalert: false,
+            failalert: false,
         }
     }
 }
