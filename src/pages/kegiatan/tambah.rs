@@ -1,5 +1,5 @@
 use crate::app::default::invoke;
-use crate::models::kegiatan::KegiatanArgs;
+use berbagi::models::kegiatan::KegiatanArgs;
 use leptos::leptos_dom::ev::SubmitEvent;
 use leptos::*;
 use serde_wasm_bindgen::to_value;
@@ -15,9 +15,8 @@ pub fn TambahKegiatan() -> impl IntoView {
                 return;
             }
 
-            let args = to_value(&KegiatanArgs { name: &name() }).unwrap();
+            let args = to_value(&KegiatanArgs { name: name() }).unwrap();
             let new_msg = invoke("tambahkegiatan", args).await.as_string().unwrap();
-            logging::log!("{}", new_msg);
             set_name("".to_string());
         });
     };
