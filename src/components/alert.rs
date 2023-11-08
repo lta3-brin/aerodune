@@ -8,8 +8,15 @@ pub fn SuccessAlert() -> impl IntoView {
     let (_, set_success) =
         create_slice(state, |st| st.successalert, |st, val| st.successalert = val);
 
+    let (pesanalert, set_pesanalert) = create_slice(
+        state,
+        |st| st.pesanalert.clone(),
+        |st, val| st.pesanalert = val,
+    );
+
     let onbtnclick = move |_| {
         set_success(false);
+        set_pesanalert("".to_string())
     };
 
     view! {
@@ -36,7 +43,11 @@ pub fn SuccessAlert() -> impl IntoView {
                     <strong class="block font-medium text-gray-900 dark:text-white">"Perubahan disimpan"</strong>
 
                     <p class="mt-1 text-sm text-gray-700 dark:text-gray-400">
-                        "Rekaman data berhasil disimpan."
+                        "Rekaman data"
+                        <span class="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700 mx-2">
+                            {pesanalert}
+                        </span>
+                        "berhasil disimpan."
                     </p>
                 </div>
 
