@@ -7,6 +7,13 @@ use serde_wasm_bindgen::to_value;
 
 #[component]
 pub fn TambahKegiatan() -> impl IntoView {
+    let state = expect_context::<RwSignal<DefaultState>>();
+    let (_, set_pesanalert) = create_slice(
+        state,
+        |st| st.pesanalert.clone(),
+        |st, val| st.pesanalert = val,
+    );
+
     let (name, set_name) = create_signal(String::new());
 
     let state = expect_context::<RwSignal<DefaultState>>();
@@ -21,7 +28,9 @@ pub fn TambahKegiatan() -> impl IntoView {
             }
 
             let args = to_value(&KegiatanArgs { name: name() }).unwrap();
-            let new_msg = invoke("tambahkegiatan", args).await.as_string().unwrap();
+            let msg = invoke("tambahkegiatan", args).await.as_string().unwrap();
+
+            set_pesanalert(msg);
             set_name("".to_string());
             set_success(true);
         });
