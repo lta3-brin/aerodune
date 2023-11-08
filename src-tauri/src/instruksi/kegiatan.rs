@@ -19,7 +19,7 @@ pub async fn tambahkegiatan(name: String) -> Result<String, String> {
         Ok(data) => {
             let kegiatan = data.first();
             if let Some(keg) = kegiatan {
-                Ok(format!("Kegiatan #{} berhasil disimpan.", keg.id))
+                Ok(format!("#{}", keg.id))
             } else {
                 Ok("ID kegiatan tidak ditemukan saat penimpanan.".to_string())
             }
