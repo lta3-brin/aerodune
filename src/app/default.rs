@@ -11,6 +11,7 @@ use crate::pages::kegiatan::rincian::RincianKegiatan;
 use crate::pages::kegiatan::tambah::TambahKegiatan;
 use crate::pages::utama::HalamanUtama;
 use crate::stores::default::DefaultState;
+use crate::stores::kegiatan::KegiatanState;
 
 #[wasm_bindgen]
 extern "C" {
@@ -22,6 +23,7 @@ extern "C" {
 pub fn DefaultApp() -> impl IntoView {
     provide_meta_context();
     provide_context(create_rw_signal(DefaultState::default()));
+    provide_context(create_rw_signal(KegiatanState::default()));
 
     let state = expect_context::<RwSignal<DefaultState>>();
     let (light, _) = create_slice(state, |st| st.light, |st, val| st.light = val);
