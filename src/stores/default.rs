@@ -4,7 +4,6 @@ pub struct DefaultState {
     pub closesidebar: bool,
     pub successalert: bool,
     pub failalert: bool,
-    pub pesanalert: String,
 }
 
 impl Default for DefaultState {
@@ -14,7 +13,6 @@ impl Default for DefaultState {
             closesidebar: true,
             successalert: false,
             failalert: false,
-            pesanalert: "".to_string(),
         }
     }
 }
