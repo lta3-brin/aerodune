@@ -12,3 +12,8 @@ pub struct KegiatanTambah {
     pub create: DateTime<Local>,
     pub update: DateTime<Local>,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct KegiatanPagination {
+    pub page: u32,
+}
