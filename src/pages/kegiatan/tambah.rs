@@ -1,5 +1,6 @@
 use crate::app::default::invoke;
 use crate::stores::default::DefaultState;
+use crate::stores::kegiatan::KegiatanState;
 use berbagi::models::kegiatan::KegiatanArgs;
 use leptos::leptos_dom::ev::SubmitEvent;
 use leptos::*;
@@ -7,9 +8,9 @@ use serde_wasm_bindgen::to_value;
 
 #[component]
 pub fn TambahKegiatan() -> impl IntoView {
-    let state = expect_context::<RwSignal<DefaultState>>();
+    let kegiatanstate = expect_context::<RwSignal<KegiatanState>>();
     let (_, set_pesanalert) = create_slice(
-        state,
+        kegiatanstate,
         |st| st.pesanalert.clone(),
         |st, val| st.pesanalert = val,
     );
