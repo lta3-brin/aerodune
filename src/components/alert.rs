@@ -1,6 +1,6 @@
 use leptos::*;
 
-use crate::stores::default::DefaultState;
+use crate::stores::{default::DefaultState, kegiatan::KegiatanState};
 
 #[component]
 pub fn SuccessAlert() -> impl IntoView {
@@ -8,8 +8,9 @@ pub fn SuccessAlert() -> impl IntoView {
     let (_, set_success) =
         create_slice(state, |st| st.successalert, |st, val| st.successalert = val);
 
+    let kegiatanstate = expect_context::<RwSignal<KegiatanState>>();
     let (pesanalert, set_pesanalert) = create_slice(
-        state,
+        kegiatanstate,
         |st| st.pesanalert.clone(),
         |st, val| st.pesanalert = val,
     );
