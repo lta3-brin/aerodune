@@ -1,5 +1,10 @@
+use berbagi::models::kegiatan::KegiatanPagination;
 use leptos::*;
 use leptos_router::*;
+
+use crate::app::default::invoke;
+use crate::stores::kegiatan::KegiatanState;
+use serde_wasm_bindgen::to_value;
 
 #[component]
 pub fn DefaultSidebar() -> impl IntoView {
@@ -33,6 +38,19 @@ pub fn DefaultBrand() -> impl IntoView {
 
 #[component]
 pub fn DefaultSideMenu() -> impl IntoView {
+    let kegiatanstate = expect_context::<RwSignal<KegiatanState>>();
+    let (halamankegiatan, _) = create_slice(
+        kegiatanstate,
+        |st| st.kegiatanpage,
+        |st, val| st.kegiatanpage = val,
+    );
+
+    create_resource(halamankegiatan, |pg| async move {
+        let args = to_value(&KegiatanPagination { page: pg }).unwrap();
+        let msg = invoke("muatkegiatan", args).await.as_string().unwrap();
+        logging::log!("{}", msg);
+    });
+
     view! {
         <ul class="mt-6 space-y-1">
             <li>
@@ -64,4 +82,3 @@ pub fn DefaultSideFooter() -> impl IntoView {
         </A>
     }
 }
-
