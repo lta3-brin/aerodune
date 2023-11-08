@@ -21,7 +21,7 @@ pub async fn tambahkegiatan(name: String) -> Result<String, String> {
             if let Some(keg) = kegiatan {
                 Ok(format!("#{}", keg.id))
             } else {
-                Ok("ID kegiatan tidak ditemukan saat penimpanan.".to_string())
+                Ok("ID kegiatan tidak ditemukan saat penyimpanan.".to_string())
             }
         }
 
@@ -31,4 +31,22 @@ pub async fn tambahkegiatan(name: String) -> Result<String, String> {
             Err(msg)
         }
     }
+}
+
+#[tauri::command]
+pub async fn muatkegiatan(page: u32) -> Result<String, String> {
+    let limit = 10;
+    let mut start = 0;
+
+    if page > 0 {
+        start = (page - 1) * limit + 1;
+    }
+
+    let response = DB
+        .query("SELECT * FROM kegiatan ORDER BY create DESC LIMIT $limit START $start")
+        .bind(("limit", limit))
+        .bind(("start", start))
+        .await;
+
+    Ok(String::from("COBA"))
 }
