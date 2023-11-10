@@ -3,6 +3,7 @@ mod pages;
 mod stores;
 mod models;
 mod configs;
+mod controllers;
 mod components;
 
 use leptos::*;
