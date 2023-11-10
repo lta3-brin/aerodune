@@ -1,7 +1,8 @@
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
-use wasm_bindgen::prelude::*;
+use anyhow::Result;
+use surrealdb::engine::remote::ws::Ws;
 
 use crate::components::alert::SuccessAlert;
 use crate::components::galat::TakDitemukan;
@@ -11,11 +12,13 @@ use crate::pages::kegiatan::rincian::RincianKegiatan;
 use crate::pages::kegiatan::tambah::TambahKegiatan;
 use crate::pages::utama::HalamanUtama;
 use crate::stores::default::DefaultState;
+use crate::configs::db::DB;
 
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "tauri"])]
-    pub async fn invoke(cmd: &str, args: JsValue) -> JsValue;
+async fn connect_db() -> Result<()> {
+    DB.connect::<Ws>("localhost:8000").await?;
+    DB.use_ns("aerodune").use_db("kalibrasi").await?;
+
+    Ok(())
 }
 
 #[component]
@@ -23,11 +26,16 @@ pub fn DefaultApp() -> impl IntoView {
     provide_meta_context();
     provide_context(create_rw_signal(DefaultState::default()));
 
+    let act = create_action(|_: &String| {
+        connect_db()
+    });
+
     let state = expect_context::<RwSignal<DefaultState>>();
     let (light, _) = create_slice(state, |st| st.light, |st, val| st.light = val);
     let (side, _) = create_slice(state, |st| st.closesidebar, |st, val| st.closesidebar = val);
     let (success, _) = create_slice(state, |st| st.successalert, |st, val| st.successalert = val);
 
+    act.dispatch("".to_string());
     view! {
         <Show when=light fallback=|| view! {
             <Html lang="en" class="dark bg-gray-800" />
@@ -68,3 +76,4 @@ pub fn DefaultApp() -> impl IntoView {
         </div>
     }
 }
+
