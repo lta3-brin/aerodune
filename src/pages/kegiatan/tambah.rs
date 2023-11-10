@@ -1,9 +1,7 @@
-use crate::app::default::invoke;
-use crate::stores::default::DefaultState;
-use berbagi::models::kegiatan::KegiatanArgs;
-use leptos::leptos_dom::ev::SubmitEvent;
 use leptos::*;
-use serde_wasm_bindgen::to_value;
+use leptos::leptos_dom::ev::SubmitEvent;
+
+use crate::stores::default::DefaultState;
 
 #[component]
 pub fn TambahKegiatan() -> impl IntoView {
@@ -15,16 +13,9 @@ pub fn TambahKegiatan() -> impl IntoView {
 
     let simpankegiatan = move |ev: SubmitEvent| {
         ev.prevent_default();
-        spawn_local(async move {
-            if name().is_empty() {
-                return;
-            }
 
-            let args = to_value(&KegiatanArgs { name: name() }).unwrap();
-            let new_msg = invoke("tambahkegiatan", args).await.as_string().unwrap();
-            set_name("".to_string());
-            set_success(true);
-        });
+        set_name("".to_string());
+        set_success(true);
     };
 
     let update_name = move |ev| {
@@ -66,3 +57,4 @@ pub fn TambahKegiatan() -> impl IntoView {
         </form>
     }
 }
+
