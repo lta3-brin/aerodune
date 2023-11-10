@@ -2,6 +2,7 @@ use leptos::*;
 use leptos::leptos_dom::ev::SubmitEvent;
 
 use crate::stores::default::DefaultState;
+use crate::models::kegiatan::KegiatanTambah;
 
 #[component]
 pub fn TambahKegiatan() -> impl IntoView {
@@ -11,9 +12,14 @@ pub fn TambahKegiatan() -> impl IntoView {
     let (_, set_success) =
         create_slice(state, |st| st.successalert, |st, val| st.successalert = val);
 
+    let act = create_action(|name: &String| {
+        KegiatanTambah::tambah(name.clone())
+    });
+
     let simpankegiatan = move |ev: SubmitEvent| {
         ev.prevent_default();
 
+        act.dispatch(name());
         set_name("".to_string());
         set_success(true);
     };
