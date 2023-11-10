@@ -1,7 +1,9 @@
 mod app;
-mod components;
 mod pages;
 mod stores;
+mod models;
+mod configs;
+mod components;
 
 use leptos::*;
 
