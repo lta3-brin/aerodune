@@ -26,7 +26,7 @@ pub fn DefaultApp() -> impl IntoView {
     provide_meta_context();
     provide_context(create_rw_signal(DefaultState::default()));
 
-    let act = create_action(|_: &String| {
+    let act = create_action(|_: &()| {
         connect_db()
     });
 
@@ -35,7 +35,7 @@ pub fn DefaultApp() -> impl IntoView {
     let (side, _) = create_slice(state, |st| st.closesidebar, |st, val| st.closesidebar = val);
     let (success, _) = create_slice(state, |st| st.successalert, |st, val| st.successalert = val);
 
-    act.dispatch("".to_string());
+    act.dispatch(());
     view! {
         <Show when=light fallback=|| view! {
             <Html lang="en" class="dark bg-gray-800" />
