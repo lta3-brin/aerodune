@@ -2,7 +2,8 @@ use chrono::prelude::{DateTime, Local};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct KegiatanArgs {
+pub struct KegiatanDaftar {
+    pub id: String,
     pub name: String,
 }
 
