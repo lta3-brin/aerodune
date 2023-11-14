@@ -1,6 +1,8 @@
 use leptos::*;
 use leptos_router::*;
 
+use crate::{stores::default::DefaultState, models::kegiatan::KegiatanTambah};
+
 #[component]
 pub fn DefaultSidebar() -> impl IntoView {
     view! {
@@ -33,6 +35,15 @@ pub fn DefaultBrand() -> impl IntoView {
 
 #[component]
 pub fn DefaultSideMenu() -> impl IntoView {
+    let state = expect_context::<RwSignal<DefaultState>>();
+    let (pg, _) = create_slice(state, |st| st.page, |st, val| st.page = val);
+    let src = create_resource(
+        pg,
+        KegiatanTambah::muat
+    );
+
+    logging::log!("{:?}", src);
+
     view! {
         <ul class="mt-6 space-y-1">
             <li>
