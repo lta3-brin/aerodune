@@ -1,9 +1,10 @@
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct DefaultState {
     pub light: bool,
     pub closesidebar: bool,
     pub successalert: bool,
     pub failalert: bool,
+    pub page: u32,
 }
 
 impl Default for DefaultState {
@@ -13,6 +14,7 @@ impl Default for DefaultState {
             closesidebar: true,
             successalert: false,
             failalert: false,
+            page: 1
         }
     }
 }
