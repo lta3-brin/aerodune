@@ -1,5 +1,6 @@
-use anyhow::Result;
 use chrono::prelude::Local;
+use leptos::error::Result;
+use surrealdb::engine::remote::ws::Ws;
 
 use crate::configs::db::DB;
 use crate::configs::general::PAGE_LIMIT;
@@ -20,23 +21,19 @@ impl KegiatanTambah {
         Ok(created)
     }
 
-    pub async fn muat(page: u32) -> Vec<KegiatanMuat> {
+    pub async fn muat(page: u32) -> Result<Vec<KegiatanMuat>> {
+        DB.connect::<Ws>("localhost:8000").await?;
+        DB.use_ns("aerodune").use_db("kalibrasi").await?;
+
         let offset = PAGE_LIMIT * (page - 1);
-        let q = DB
+        let mut q = DB
             .query("select * from kegiatan order by create desc limit $limit start $start")
             .bind(("limit", PAGE_LIMIT))
             .bind(("start", offset))
-            .await;
+            .await?;
 
-        match q {
-            Ok(mut res) => {
-                let kegiatan: Vec<KegiatanMuat> = res.take(0).unwrap_or_default();
+        let kegiatan: Vec<KegiatanMuat> = q.take(0)?;
 
-                kegiatan
-            }
-            Err(_) => {
-                vec![]
-            }
-        }
+        Ok(kegiatan)
     }
 }
