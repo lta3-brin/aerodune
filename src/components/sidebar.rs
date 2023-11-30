@@ -1,7 +1,7 @@
 use leptos::*;
 use leptos_router::*;
 
-use crate::{stores::default::DefaultState, models::kegiatan::KegiatanTambah};
+use crate::{models::kegiatan::KegiatanTambah, stores::default::DefaultState};
 
 #[component]
 pub fn DefaultSidebar() -> impl IntoView {
@@ -37,32 +37,59 @@ pub fn DefaultBrand() -> impl IntoView {
 pub fn DefaultSideMenu() -> impl IntoView {
     let state = expect_context::<RwSignal<DefaultState>>();
     let (pg, _) = create_slice(state, |st| st.page, |st, val| st.page = val);
-    let src = create_resource(
-        pg,
-        KegiatanTambah::muat
-    );
 
-    logging::log!("{:?}", src);
+    let src = create_local_resource(pg, KegiatanTambah::muat);
+
+    let kegiatan = move || {
+        src.and_then(|data| {
+            data.iter()
+                .map(|_keg| {
+                    view! {
+                        <li>
+                            <A href="/kegiatan/2" exact=true class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
+                                "ABC"
+                            </A>
+                        </li>
+                    }
+                })
+                .collect_view()
+        })
+    };
+
+    let fallback = move |errors: RwSignal<Errors>| {
+        let error_list = move || {
+            errors.with(|errors| {
+                errors
+                    .iter()
+                    .map(|(_, e)| {
+                        view! {
+                            <li class="mt-2 text-sm text-red-700">
+                                {e.to_string()}
+                            </li>
+                        }
+                    })
+                    .collect_view()
+            })
+        };
+
+        view! {
+            <div role="alert" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
+                <strong class="block font-medium text-red-800">
+                    "Terjadi kesalahan"
+                </strong>
+
+                <ul>{error_list}</ul>
+            </div>
+        }
+    };
 
     view! {
         <ul class="mt-6 space-y-1">
-            <li>
-                <A href="/kegiatan/1" exact=true class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
-                    "Kegiatan 1"
-                </A>
-            </li>
-
-            <li>
-                <A href="/kegiatan/2" exact=true class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
-                    "Instrumen 1"
-                </A>
-            </li>
-
-            <li>
-                <A href="/kegiatan/3" exact=true class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
-                    "Kegiatan 2"
-                </A>
-            </li>
+            <Suspense fallback=move || view! { <li>"Memuat kegiatan"</li> }>
+                <ErrorBoundary fallback>
+                    { kegiatan }
+                </ErrorBoundary>
+            </Suspense>
         </ul>
     }
 }
@@ -75,4 +102,3 @@ pub fn DefaultSideFooter() -> impl IntoView {
         </A>
     }
 }
-
