@@ -1,1 +1,1 @@
-pub const PAGE_LIMIT: u32 = 10;
+pub const PAGE_LIMIT: u32 = 50;
