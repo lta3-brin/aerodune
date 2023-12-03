@@ -1,13 +1,13 @@
 use leptos::*;
 use leptos_router::*;
 
-use crate::{models::kegiatan::KegiatanTambah, stores::default::DefaultState};
+use crate::{models::kegiatan::KegiatanTambah, controllers::alert::default_fallback};
 
 #[component]
 pub fn DefaultSidebar() -> impl IntoView {
     view! {
         <div class="w-60 flex h-screen flex-col justify-between border-e bg-white dark:bg-gray-800 dark:border-gray-700">
-            <div class="px-4 py-6">
+            <div class="overflow-y-auto px-4 py-6">
                 <DefaultBrand />
                 <DefaultSideMenu />
             </div>
@@ -35,19 +35,20 @@ pub fn DefaultBrand() -> impl IntoView {
 
 #[component]
 pub fn DefaultSideMenu() -> impl IntoView {
-    let state = expect_context::<RwSignal<DefaultState>>();
-    let (pg, _) = create_slice(state, |st| st.page, |st, val| st.page = val);
+    let src = create_local_resource(move || (), |_| KegiatanTambah::init());
 
-    let src = create_local_resource(pg, KegiatanTambah::muat);
-
-    let kegiatan = move || {
+    let kegiatan_awal = move || {
         src.and_then(|data| {
             data.iter()
-                .map(|_keg| {
+                .map(|keg| {
+                    let kg = keg.clone();
+                    let id = kg.id.id.to_string();
+                    let url = format!("/kegiatan/{id}");
+
                     view! {
                         <li>
-                            <A href="/kegiatan/2" exact=true class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
-                                "ABC"
+                            <A href=url exact=true class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-300">
+                                { kg.name }
                             </A>
                         </li>
                     }
@@ -56,38 +57,21 @@ pub fn DefaultSideMenu() -> impl IntoView {
         })
     };
 
-    let fallback = move |errors: RwSignal<Errors>| {
-        let error_list = move || {
-            errors.with(|errors| {
-                errors
-                    .iter()
-                    .map(|(_, e)| {
-                        view! {
-                            <li class="mt-2 text-sm text-red-700">
-                                {e.to_string()}
-                            </li>
-                        }
-                    })
-                    .collect_view()
-            })
-        };
-
-        view! {
-            <div role="alert" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
-                <strong class="block font-medium text-red-800">
-                    "Terjadi kesalahan"
-                </strong>
-
-                <ul>{error_list}</ul>
-            </div>
-        }
-    };
-
     view! {
         <ul class="mt-6 space-y-1">
-            <Suspense fallback=move || view! { <li>"Memuat kegiatan"</li> }>
-                <ErrorBoundary fallback>
-                    { kegiatan }
+            <Suspense fallback=move || view! { 
+                <div role="status" class="max-w-sm animate-pulse">
+                    <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-100 mb-4"></div>
+                    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+                    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+                    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+                    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+                    <span class="sr-only">"Memuat kegiatan..."</span>
+                </div>
+             }>
+                <ErrorBoundary fallback=default_fallback>
+                    { kegiatan_awal }
                 </ErrorBoundary>
             </Suspense>
         </ul>
